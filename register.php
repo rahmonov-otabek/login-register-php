@@ -1,3 +1,9 @@
+<?php
+
+require_once __DIR__ . '/src/helpers.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
@@ -8,7 +14,7 @@
 </head>
 <body>
 
-<form class="card">
+<form class="card" action="src/actions/register.php" method="post" enctype="multipart/form-data">
     <h2>Регистрация</h2>
 
     <label for="name">
@@ -18,9 +24,12 @@
             id="name"
             name="name"
             placeholder="Иванов Иван"
-            aria-invalid="true"
-            required
+            value="<?php echo getOldValue('name'); ?> "
+            <?php validationErrorAttr('name'); ?> 
         >
+        <?php if(hasValidationError('name')) { ?>
+            <small><?php validationErrorMessage('name'); ?></small>
+        <?php } ?>
     </label>
 
     <label for="email">
@@ -29,9 +38,13 @@
             type="text"
             id="email"
             name="email"
-            placeholder="ivan@areaweb.su"
-            required
+            placeholder="test@test.uz" 
+            value="<?php echo getOldValue('email'); ?> "
+            <?php validationErrorAttr('email'); ?> 
         >
+        <?php if(hasValidationError('email')) { ?>
+            <small><?php validationErrorMessage('email'); ?></small>
+        <?php } ?>
     </label>
 
     <label for="avatar">Изображение профиля
@@ -39,7 +52,11 @@
             type="file"
             id="avatar"
             name="avatar"
+            <?php validationErrorAttr('avatar'); ?> 
         >
+        <?php if(hasValidationError('avatar')) { ?>
+            <small><?php validationErrorMessage('avatar'); ?></small>
+        <?php } ?>
     </label>
 
     <div class="grid">
@@ -50,8 +67,11 @@
                 id="password"
                 name="password"
                 placeholder="******"
-                required
+                <?php validationErrorAttr('password'); ?> 
             >
+            <?php if(hasValidationError('password')) { ?>
+                <small><?php validationErrorMessage('password'); ?></small>
+            <?php } ?>
         </label>
 
         <label for="password_confirmation">
@@ -60,9 +80,12 @@
                 type="password"
                 id="password_confirmation"
                 name="password_confirmation"
-                placeholder="******"
-                required
+                placeholder="******" 
+                <?php validationErrorAttr('password_confirmation'); ?> 
             >
+            <?php if(hasValidationError('password_confirmation')) { ?>
+                <small><?php validationErrorMessage('password_confirmation'); ?></small>
+            <?php } ?>
         </label>
     </div>
 
@@ -83,6 +106,7 @@
         disabled
     >Продолжить</button>
 </form>
+
 
 <p>У меня уже есть <a href="/login.html">аккаунт</a></p>
 
